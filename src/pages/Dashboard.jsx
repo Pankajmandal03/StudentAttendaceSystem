@@ -107,7 +107,10 @@ const Dashboard = () => {
                   </Link>
                 </li>
                 <li>
-                  <Link to="" className="text-2xl hover:font-semibold">
+                  <Link
+                    to="/attendance"
+                    className="text-2xl hover:font-semibold"
+                  >
                     Your Attendance
                   </Link>
                 </li>

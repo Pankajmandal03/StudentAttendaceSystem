@@ -5,19 +5,14 @@ import Layout from "../components/Layout";
 import { UserAuth } from "../context/Auth_context";
 
 const Attendance = () => {
-  const { user } = UserAuth();
-  useEffect(({ qrcodedata }) => {
-    const unsub = onSnapshot(
-      doc(
-        db,
-        `${qrcodedata.department}-${qrcodedata.year}-${qrcodedata.subname}-${qrcodedata.AdminUID}`,
-        user.uid
-      ),
-      (doc) => {
-        console.log("Current data: ", doc.data());
-        unsub();
-      }
-    );
+  const { userdata, user } = UserAuth();
+
+  useEffect(() => {
+    const unsub = onSnapshot(doc(db, "Com-2-EC-I", `${user.uid}`), (doc) => {
+      console.log("Current data: ", doc.data());
+    });
+    console.log(user.uid);
+    unsub();
   }, []);
 
   return (
