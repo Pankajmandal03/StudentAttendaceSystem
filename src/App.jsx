@@ -17,11 +17,7 @@ function App() {
             <Route path="signup" element={<Signup />} />
             <Route path="/Profile" element={<Profile />} />
             <Route path="/Dashboard" element={<Dashboard />} />
-<<<<<<< HEAD
-            <Route path="/Attendance" element={<Attendance />} />
-=======
             <Route path="/attendance" element={<Attendance />} />
->>>>>>> 00a8fa524f373e4b3608f8bea57d282e5af41640
           </Routes>
         </AuthenticationContext>
       </Router>
