@@ -3,13 +3,16 @@ import { createUserWithEmailAndPassword, onAuthStateChanged, sendEmailVerificati
 import { auth, db } from '../Firebase_config';
 import { useNavigate } from 'react-router-dom';
 import { doc, onSnapshot, setDoc } from 'firebase/firestore';
-
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const AuthContext = createContext()
 
 const AuthenticationContext = ({ children }) => {
 	const [user, setUser] = useState();
 	const [userdata, setuserdata] = useState()
+	const [loading, setLoading] = useState(false);
+
 	const naviGate = useNavigate()
 
 	useEffect(() => {
@@ -35,6 +38,7 @@ const AuthenticationContext = ({ children }) => {
 
 	const handleSignup = async (formState) => {
 		if (formState.password === formState.confirmpassword) {
+			setLoading(true);
 			await createUserWithEmailAndPassword(auth, formState.email, formState.password)
 				.then((userCredential) => {
 					const user = userCredential.user;
@@ -43,8 +47,18 @@ const AuthenticationContext = ({ children }) => {
 						email: user.email,
 						uid: user.uid
 					}).then(() => {
+						setLoading(false);
 						sendEmailVerification(auth.currentUser).then(() => {
-							alert("Account Created")
+							toast.success("SignUp Sucessfully!", {
+								position: "top-center",
+								autoClose: 3000,
+								hideProgressBar: false,
+								closeOnClick: false,
+								pauseOnHover: false,
+								draggable: false,
+								progress: false,
+								theme: "light",
+							});
 							naviGate("/Dashboard")
 						})
 					})
@@ -53,16 +67,25 @@ const AuthenticationContext = ({ children }) => {
 					alert(error)
 				})
 		}
-		else{ alert("password not match")}
+		else {
+			toast.error("Invalid Password!", {
+				position: "top-center",
+				autoClose: 3000,
+				hideProgressBar: false,
+				closeOnClick: false,
+				pauseOnHover: false,
+				draggable: false,
+				progress: false,
+				theme: "light",
+			});
+		}
 	}
-
-
-
-
 	return (
 		<>
-			<AuthContext.Provider value={{ user, setUser, handleSignup, userdata }}>
+			<ToastContainer></ToastContainer>
+			<AuthContext.Provider value={{ user, setUser, handleSignup, userdata, loading, setLoading }}>
 				{children}
+
 			</AuthContext.Provider>
 		</>
 	)

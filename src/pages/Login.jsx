@@ -5,6 +5,9 @@ import Input from "../components/Input";
 import Layout from "../components/Layout";
 import { UserAuth } from "../context/Auth_context";
 import { auth } from "../Firebase_config";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import Spinner from "../components/Spiner";
 
 const Login = () => {
   const { setUser } = UserAuth();
@@ -14,6 +17,7 @@ const Login = () => {
     password: "",
   };
   const [formState, setFormState] = useState(initialState);
+  const [loading, setLoading] = useState(false);
 
   const handleFormChange = (e) => {
     setFormState({
@@ -23,13 +27,26 @@ const Login = () => {
   };
 
   const handleloginIn = async () => {
+    setLoading(true);
     await signInWithEmailAndPassword(
       auth,
       formState.email,
       formState.password
     ).then((userCredential) => {
+      toast.success("Login Sucessfully!", {
+        position: "top-center",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: false,
+        pauseOnHover: false,
+        draggable: false,
+        progress: false,
+        theme: "light",
+      });
+
       // Signed in
       const user = userCredential.user;
+      setLoading(false);
       setUser(user);
       naviGate("/Dashboard");
       // ...
@@ -37,14 +54,11 @@ const Login = () => {
   };
 
   return (
-    <Layout className={'flex justify-center items-center'}>
-      <div className="w-[80%] h-[60%] md:w-fit p-4 bg-white rounded-md  flex flex-col items-center justify-center gap-2 pt-3">
-          <h1 className="text-black text-3xl font-semibold text-center">
-            Login Here
-          </h1>
-      
+    <Layout className={"flex justify-center items-center"}>
+      <div className="w-[80%] h-[50%] md:w-fit p-4 bg-white rounded-md  flex flex-col items-center justify-center gap-2 pt-3">
+        <h1 className="text-black text-3xl font-bold text-center">Login</h1>
+
         <Input
-          
           onChange={handleFormChange}
           id="email"
           label={"Mail"}
@@ -64,19 +78,18 @@ const Login = () => {
             Create Here
           </Link>
         </div>
-        
-          
-          <button
-            type="button"
-            onClick={handleloginIn}
-            className="bg-purple-500 text-center text-xl text-white rounded-lg p-1 hover:bg-purple-400"
-          >
-            Login
-          </button>
 
-
-      
+        <button
+          type="button"
+          onClick={() => {
+            handleloginIn(formState, setLoading);
+          }}
+          className="bg-purple-500 text-center text-xl text-white rounded-lg px-6 py-2 hover:bg-purple-400"
+        >
+          {loading ? <Spinner /> : "Login"}
+        </button>
       </div>
+      <ToastContainer />
     </Layout>
   );
 };
