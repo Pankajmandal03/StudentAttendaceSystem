@@ -58,9 +58,9 @@ const Profile = () => {
     <>
       <Layout>
         <Navbarcomp></Navbarcomp>
-        <div className="flex items-center justify-center mt-6">
+        <div className="flex items-center justify-center my-6">
           {userdata ? (
-            <div className=" w-[90vw] h-[80vh] bg-white flex flex-col items-center justify-center  rounded-lg gap-y-5">
+            <div className=" w-[90vw] h-[80vh] bg-white flex flex-col items-center justify-center  rounded-lg gap-y-5 py-4">
               <form action="" className="contents w-[100vw]">
                 <h1 className="text-4xl font-bold text-center ">Profile</h1>
                 <Input

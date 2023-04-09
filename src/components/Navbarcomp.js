@@ -26,39 +26,77 @@ const Navbarcomp = ({ className }) => {
 	};
 	return (
 		<div className={className}>
-			<nav>
+			<nav className=''>
 				<ul className="flex   justify-between items-center pb-2 rounded-md pt-6 px-5">
 
 
 					<li>
-						<Link to="/profile" className="mx-auto   cursor-pointer p-2 rounded-md font-semibold hover:scale-105 shadow hover:shadow-lg duration-200 bg-purple-600 text-white">
+						<Link to="/profile" className="mx-auto   cursor-pointer p-2 rounded-md font-semibold hover:scale-105  hover:shadow-lg duration-200 bg-purple-600 text-white shadow-md">
 							Profile
 						</Link>
 					</li>
 					<li>
+						<Link to="/Dashboard" className="mx-auto   cursor-pointer p-2 rounded-md font-semibold hover:scale-105  hover:shadow-lg duration-200 bg-white text-purple-600 shadow-md">
+							Dashboard
+						</Link>
 
-						{userdata ? (
-							<p className="text-2xl hover:font-semibold  font-bold">
-								{userdata.name}
-							</p>
-						) : (
-							<p className="text-1xl hover:font-semibold">Account</p>
-						)}
 					</li>
 					<li>
 
 						<button
 							onClick={logOut}
-							className="mx-auto   cursor-pointer p-2 rounded-md font-semibold hover:scale-105 shadow hover:shadow-lg duration-200 bg-red-600 text-white"
+							className="mx-auto   cursor-pointer p-2 rounded-md font-semibold hover:scale-105  hover:shadow-lg duration-200 bg-red-600 text-white shadow-md"
 						>
 							Log Out
 						</button>
 					</li>
 				</ul>
 			</nav>
+			<p className='text-center mt-2'>
+				{userdata ? (
+					<p className="text-2xl hover:font-semibold  font-bold">
+						{userdata.name}
+					</p>
+				) : (
+					<p className="text-1xl hover:font-semibold">Account</p>
+				)}
+			</p>
 			<ToastContainer></ToastContainer>
 		</div>
 	)
 }
 
 export default Navbarcomp
+
+// import React, { useState } from 'react';
+// import { Link } from 'react-router-dom';
+
+// //creating a component to render the navigation bar
+// const Navbarcomp = () => {
+
+// 	//creating a state variable to store the current page
+// 	const [currentPage, setCurrentPage] = useState('home');
+
+// 	//creating a function to update the current page state variable
+// 	const handlePageChange = (page) => {
+// 		setCurrentPage(page);
+// 	}
+
+// 	return (
+
+// 		//rendering the navigation bar with links to different pages
+// 		<nav>
+
+// 			<Link onClick={() => handlePageChange('Profile')} className={currentPage === 'Profile' ? 'active' : ''} to="/Profile">Profile</Link>
+
+// 			<Link onClick={() => handlePageChange('Dashboard')} className={currentPage === 'Dashboard' ? 'active' : ''} to="/Dashboard">Dashboard</Link>
+
+// 			<Link onClick={() => handlePageChange('contact')} className={currentPage === 'contact' ? 'active' : ''} to="/contact">Contact</Link>
+
+// 		</nav>
+
+// 	);
+// };
+// export default Navbarcomp;
+
+

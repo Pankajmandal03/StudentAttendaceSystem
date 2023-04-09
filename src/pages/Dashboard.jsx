@@ -6,6 +6,8 @@ import { Html5Qrcode } from "html5-qrcode";
 import { collection, addDoc } from "@firebase/firestore";
 
 import { AiOutlineScan } from "react-icons/ai";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Dashboard = () => {
   const { userdata } = UserAuth();
@@ -33,7 +35,16 @@ const Dashboard = () => {
             }
           )
             .then(() => {
-              alert("data added sucessfully");
+              toast.success("Attendance Marked!", {
+                position: "top-center",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: false,
+                pauseOnHover: false,
+                draggable: false,
+                progress: false,
+                theme: "light",
+              });
               console.log(qrcodedata);
             })
             .catch((err) => {
@@ -56,7 +67,7 @@ const Dashboard = () => {
     <>
       <Layout>
         <Navbarcomp></Navbarcomp>
-        <div className="w-full h-screen flex justify-center items-center flex-col gap-y-28  ">
+        <div className="w-full h-[70%] flex justify-center items-center flex-col py-10 mt-10 ">
           <div className=" h-[50vh] md:h-[55vh] p-2 w-[90vw] md:w-[25vw] border-2 border-dashed  rounded-lg">
             <div id="reader" width="600px"></div>
           </div>
@@ -64,11 +75,12 @@ const Dashboard = () => {
           <button
             type="button"
             onClick={scanbutton}
-            className="mx-auto  cursor-pointer p-2 rounded-md font-semibold hover:scale-105 shadow hover:shadow-lg duration-200  text-black text-7xl"
+            className="mx-auto  cursor-pointer p-2 rounded-md font-semibold hover:scale-105 shadow hover:shadow-lg duration-200  text-black text-7xl mt-10"
           >
             <AiOutlineScan />
           </button>
         </div>
+        <ToastContainer></ToastContainer>
       </Layout>
     </>
   );
